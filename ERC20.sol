@@ -55,8 +55,6 @@ contract ERC20 is ERC20Interface {
 
     // ------------------------------------------------------------------------
     // Transfer the balance from token owner's account to to account
-    // - Owner's account must have sufficient balance to transfer
-    // - 0 value transfers are allowed
     // ------------------------------------------------------------------------
     function transfer(address to, uint tokens) public override returns (bool success) {
         require(balances[msg.sender] > tokens, "Insufficient balance.");
@@ -68,12 +66,6 @@ contract ERC20 is ERC20Interface {
 
     // ------------------------------------------------------------------------
     // Transfer tokens from the from account to the to account
-    //
-    // The calling account must already have sufficient tokens approve(...)-d
-    // for spending from the from account and
-    // - From account must have sufficient balance to transfer
-    // - Spender must have sufficient allowance to transfer
-    // - 0 value transfers are allowed
     // ------------------------------------------------------------------------
     function transferFrom(address from, address to, uint tokens) public override returns (bool success) {
         uint256 allowance = allowed[from][to];
@@ -91,10 +83,6 @@ contract ERC20 is ERC20Interface {
     // ------------------------------------------------------------------------
     // Token owner can approve for spender to transferFrom(...) tokens
     // from the token owner's account
-    //
-    // https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20-token-standard.md
-    // recommends that there are no checks for the approval double-spend attack
-    // as this should be implemented in user interfaces
     // ------------------------------------------------------------------------
     function approve(address spender, uint tokens) public override returns (bool success) {
         allowed[msg.sender][spender] = tokens;
